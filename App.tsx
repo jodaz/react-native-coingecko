@@ -7,16 +7,11 @@ import {
   ListRenderItemInfo
 } from 'react-native';
 import coinsData from './data/coins.json'
-import { StatusBar } from 'expo-status-bar';
-
-interface Coin {
-  id:     string;
-  symbol: string;
-  name:   string;
-}
+import { ICoin } from './types';
+import CoinItem from './components/CoinItem';
 
 export default function App() {
-  const [coins, setCoins] = useState(coinsData)
+  const [coins, setCoins] = useState<ICoin[] | any>(coinsData);
 
   const loadData = async () => {
     try {
@@ -29,10 +24,6 @@ export default function App() {
     }
   }
 
-  const renderItem = (info: ListRenderItemInfo<Coin>) => {
-    return <Text style={{ color: '#fff'}}>{info.item.name}</Text>;
-  };
-
   /* useEffect(() => {
     loadData()
   }, []) */
@@ -41,7 +32,7 @@ export default function App() {
     <View style={styles.container}>
       <FlatList
         data={coins}
-        renderItem={renderItem}  
+        renderItem={(props: ListRenderItemInfo<ICoin>) => <CoinItem coin={props.item} />}  
       />
     </View>
   );
