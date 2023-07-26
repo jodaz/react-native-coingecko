@@ -11,9 +11,19 @@ const CoinItem: FC<CoinItemProps> = ({ coin }) => {
         <View style={styles.container}>
             <View style={styles.coinName}>
                 <Image style={styles.image} source={{ uri: coin.image }} />
-                <Text style={styles.text}>{coin.name}</Text>
+                <View>
+                    <Text style={styles.text}>{coin.name}</Text>
+                    <Text style={styles.symbol}>{coin.symbol}</Text>
+                </View>
             </View>
-            <Text style={styles.text}>{coin.current_price}</Text>
+            <View style={styles.priceContainer}>
+                <Text style={styles.text}>${coin.current_price}</Text>
+                <Text style={[
+                    coin.price_change_percentage_24h > 0 ? styles.priceUp : styles.priceDown
+                ]}>
+                    {coin.price_change_percentage_24h}
+                </Text>
+            </View>                    
         </View>
     )
 }
@@ -30,6 +40,16 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    priceContainer: {
+        flexDirection: 'column',
+        textAlign: 'right'
+    },
+    priceUp: {
+        color: '#454B1B'
+    },
+    priceDown: {
+        color: '#880808'
+    },
     text: {
         paddingLeft: 10,
         color: '#fff'
@@ -37,6 +57,12 @@ const styles = StyleSheet.create({
     image: {
         height: 30,
         width: 30
+    },
+    symbol: {
+        color: '#434343',
+        fontSize: 10,
+        textTransform: 'uppercase',
+        marginLeft: 10,
     }
 })
 
