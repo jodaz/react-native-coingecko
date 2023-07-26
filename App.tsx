@@ -4,7 +4,9 @@ import {
   StyleSheet, 
   Text, 
   View, 
-  ListRenderItemInfo
+  ListRenderItemInfo,
+  TextInput,
+  StatusBar
 } from 'react-native';
 import coinsData from './data/coins.json'
 import { ICoin } from './types';
@@ -30,9 +32,16 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor='#141414' />
+      <View style={styles.header}>
+        <Text style={styles.title}>CryptoMarket</Text>
+        <TextInput style={styles.searchbox} />
+      </View>
       <FlatList
+        style={styles.list}
         data={coins}
         renderItem={(props: ListRenderItemInfo<ICoin>) => <CoinItem coin={props.item} />}  
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -42,6 +51,27 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#141414',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    paddingBottom: 20
+  },
+  title: {
+    color: '#fff',
+    marginTop: 10,
+    fontSize: 20
+  },
+  list: {
+    width: '90%'
+  },
+  searchbox: {
+    color: '#fff',
+    borderBottomColor: '#4657CE',
+    borderBottomWidth: 1,
+    width: '40%',
+    textAlign: 'center'
+  }
 });
