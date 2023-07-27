@@ -18,7 +18,7 @@ const CoinItem: FC<CoinItemProps> = ({ coin }) => {
             </View>
             <View style={styles.priceContainer}>
                 <Text style={styles.text}>${coin.current_price}</Text>
-                <Text style={[
+                <Text style={[styles.pricePercentage,
                     coin.price_change_percentage_24h > 0 ? styles.priceUp : styles.priceDown
                 ]}>
                     {coin.price_change_percentage_24h}
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
     },
     priceContainer: {
         flexDirection: 'column',
+        textAlign: 'right'
+    },
+    pricePercentage: {
         textAlign: 'right'
     },
     priceUp: {
